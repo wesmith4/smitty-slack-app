@@ -1,3 +1,7 @@
+if (!(process.env.NODE_ENV === 'production')) {
+    require('dotenv').config()
+}
+
 const { App } = require('@slack/bolt')
 
 // Require Listeners
@@ -34,7 +38,6 @@ app.event('app_home_opened', eventListeners.appHomeOpened)
 app.message('hello', messageListeners.respondToHello)
 
 app.action('button_click', actionListeners.simpleAcknowledge)
-
 ;(async () => {
     // Start your app
     await app.start(process.env.PORT || 3000)
