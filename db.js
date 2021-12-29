@@ -9,15 +9,6 @@ const client = new Client({
     },
 })
 
-client.connect()
-client.query(getUsersQuery, (err, res) => {
-    if (err) throw err
-    for (let row of res.rows) {
-        console.log(JSON.stringify(row))
-    }
-    client.end()
-})
-
 const getUsers = async () => {
     const getUsersQuery = `SELECT * FROM users;`
 
