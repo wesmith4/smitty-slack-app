@@ -52,7 +52,23 @@ const getEncryptedTokenBySlackUserId = async (slackUserId) => {
     }
 }
 
+const addUserGoogleToken = async (slackUserId, encryptedToken) => {
+    const addUserGoogleTokenQuery = sql`
+  INSERT INTO google_auth_tokens (slack_user_id, encrypted_refresh_token,created_on)
+  VALUES (${slackUserId}, ${encryptedToken},CURRENT_TIMESTAMP)`
+    client.connect()
+    try {
+        let results = await client.query(addUserGoogleTokenQuery)
+        client.end()
+        return results
+    } catch (err) {
+        client.end()
+        throw err
+    }
+}
+
 module.exports = {
     getUsers,
     getEncryptedTokenBySlackUserId,
+    addUserGoogleToken,
 }

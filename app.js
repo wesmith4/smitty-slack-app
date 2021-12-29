@@ -3,6 +3,7 @@ if (!(process.env.NODE_ENV === 'production')) {
 }
 
 const { App } = require('@slack/bolt')
+const { authenticateUser, googleAuthHandler } = require('./auth')
 
 // Require Listeners
 const messageListeners = require('./src/listeners/messageListeners')
@@ -12,30 +13,32 @@ const actionListeners = require('./src/listeners/actionListeners')
 const shortcutListeners = require('./src/listeners/shortcutListeners')
 const commandListeners = require('./src/listeners/commandListeners')
 
-// Require Views
-const homeViews = require('./src/views/homeViews')
-const modals = require('./src/views/modals')
-
-/* 
-This sample slack application uses SocketMode
-For the companion getting started setup guide, 
-see: https://slack.dev/bolt-js/tutorial/getting-started 
-*/
-
 // Initializes your app with your bot token and app token
 const app = new App({
     token: process.env.SLACK_BOT_TOKEN,
     signingSecret: process.env.SLACK_SIGNING_SECRET,
-    // socketMode: true,
-    // appToken: process.env.SLACK_APP_TOKEN
+    customRoutes: [
+        {
+            path: '/oauth2callback',
+            method: ['GET'],
+            handler: googleAuthHandler,
+        },
+    ],
     port: process.env.PORT || 3000,
 })
 
+// Listens for events
 app.event('url_verification', eventListeners.verifyUrl)
-app.event('app_home_opened', eventListeners.appHomeOpened)
+app.event('app_home_opened', eventListeners.renderAppHome)
 
 // Listens to incoming messages that contain "hello"
-app.message('hello', messageListeners.respondToHello)
+app.message('world', messageListeners.respondToHello)
+
+// Listens to incoming commands
+app.command('/echo-2', commandListeners.echo)
+app.command('/folders-2', commandListeners.getFolders)
+
+authenticateUser
 
 app.action('button_click', actionListeners.simpleAcknowledge)
 ;(async () => {

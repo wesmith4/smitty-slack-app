@@ -57,7 +57,35 @@ const authenticateUser = async ({ payload, client, context, next }) => {
     await next()
 }
 
+const googleAuthHandler = async (req, res) => {
+    const query = req.query
+    const code = query.code
+    const { user_id, response_url, team_id, app_id } = JSON.parse(
+        decodeURIComponent(query.state)
+    )
+    const redirectURL = `slack://app?team=${team_id}&id=${app_id}&tab=home`
+
+    try {
+        const result = await oauth2Client.getToken(code)
+        const refresh_token = result.tokens.refresh_token
+        let encrypted_token = CryptoJS.AES.encrypt(
+            refresh_token,
+            process.env.ENCRYPTION_KEY
+        ).toString()
+
+        let results = await addUserGoogleToken(user_id, encrypted_token)
+        res.statusCode(301).setHeader('Location', redirectURL)
+        res.end()
+        return
+    } catch (err) {
+        console.error(err)
+        res.statusCode(502).end('Error: ' + err)
+    }
+}
+
 module.exports = {
     authenticateUser,
     scriptClient,
+    googleAuthHandler,
+    oauth2Client,
 }
