@@ -13,6 +13,13 @@ const app = new App({
   // appToken: process.env.SLACK_APP_TOKEN
 });
 
+const verifyUrl = async ({ event, ack, respond }) => {
+  await ack()
+  await respond({ challenge: event.challenge })
+}
+
+app.event('url_verification',verifyUrl)
+
 // Listens to incoming messages that contain "hello"
 app.message('hello', async ({ message, say }) => {
   // say() sends a message to the channel where the event was triggered
