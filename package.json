@@ -10,6 +10,13 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@slack/bolt": "^3.6.0"
+    "@googleapis/script": "^0.2.0",
+    "@notionhq/client": "^0.4.11",
+    "@slack/bolt": "^3.6.0",
+    "pg": "^8.7.1"
+  },
+  "devDependencies": {
+    "dotenv": "^10.0.0",
+    "prettier": "^2.5.1"
   }
 }
