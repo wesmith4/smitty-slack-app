@@ -26,7 +26,7 @@ const getUsers = async () => {
 }
 
 const getEncryptedTokenBySlackUserId = async (slackUserId) => {
-    const getTokenQuery = sql`
+    const getTokenQuery = `
   SELECT encrypted_refresh_token
   FROM google_auth_tokens
   WHERE slack_user_id = ${slackUserId};
@@ -44,7 +44,7 @@ const getEncryptedTokenBySlackUserId = async (slackUserId) => {
 }
 
 const addUserGoogleToken = async (slackUserId, encryptedToken) => {
-    const addUserGoogleTokenQuery = sql`
+    const addUserGoogleTokenQuery = `
   INSERT INTO google_auth_tokens (slack_user_id, encrypted_refresh_token,created_on)
   VALUES (${slackUserId}, ${encryptedToken},CURRENT_TIMESTAMP)`
     client.connect()
