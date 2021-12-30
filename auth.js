@@ -92,7 +92,7 @@ const googleAuthHandler = async (req, res) => {
 
         // res.status(301).setHeader('Location', redirectURL)
         res.writeHead(302, 'Found', { Location: redirectURL })
-        res.end('Redirecting to Slack...')
+        res.end('Redirecting to Slack... Please close this tab.')
         return
     } catch (err) {
         console.error(err)
