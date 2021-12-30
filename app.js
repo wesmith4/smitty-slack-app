@@ -31,6 +31,9 @@ const app = new App({
 app.event('url_verification', eventListeners.verifyUrl)
 app.event('app_home_opened', eventListeners.renderAppHome)
 
+// Action listeners
+app.action('authenticate-button', actionListeners.simpleAcknowledge)
+
 // Listens to incoming messages that contain "hello"
 app.message('world', messageListeners.respondToHello)
 
