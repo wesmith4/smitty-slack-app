@@ -65,8 +65,6 @@ const googleAuthHandler = async (req, res) => {
     let searchParams = new url.URLSearchParams(query)
     let code = searchParams.get('code')
     let state = searchParams.get('state')
-
-    const code = query.code
     const { user_id, response_url, team_id, app_id } = JSON.parse(
         decodeURIComponent(state)
     )
