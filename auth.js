@@ -59,7 +59,10 @@ const authenticateUser = async ({ payload, client, context, next }) => {
 }
 
 const googleAuthHandler = async (req, res) => {
-    console.log('Req: ', Object.keys(req.url))
+    console.log('------Req------')
+    console.log(req)
+    console.log('------Res------')
+    console.log(res)
 
     let { query } = url.parse(req.url, true)
     let searchParams = new url.URLSearchParams(query)
