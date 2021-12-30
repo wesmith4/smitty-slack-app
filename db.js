@@ -31,6 +31,8 @@ const getEncryptedTokenBySlackUserId = async (slackUserId) => {
   FROM google_auth_tokens
   WHERE slack_user_id = "${slackUserId}";
   `
+
+    console.log('Query: ', getTokenQuery)
     const client = new Client({
         connectionString: process.env.DATABASE_URL,
         ssl: {
