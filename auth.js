@@ -90,12 +90,16 @@ const googleAuthHandler = async (req, res) => {
         let results = await addUserGoogleToken(user_id, encrypted_token)
         console.log('Results of trying to add to DB: ', results)
 
-        res.status(301).setHeader('Location', redirectURL)
-        res.end()
+        // res.status(301).setHeader('Location', redirectURL)
+        res.writeHead(302, 'Found', { Location: redirectURL })
+        res.end('Redirecting to Slack...')
         return
     } catch (err) {
         console.error(err)
-        res.status(502).end('Error: ' + err)
+        res.writeHead(502, 'Bad Gateway', {
+            'Content-Type': 'text/plain',
+        })
+        res.end('Something went wrong!')
     }
 }
 
