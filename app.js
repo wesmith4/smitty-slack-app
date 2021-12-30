@@ -13,6 +13,8 @@ const actionListeners = require('./src/listeners/actionListeners')
 const shortcutListeners = require('./src/listeners/shortcutListeners')
 const commandListeners = require('./src/listeners/commandListeners')
 
+const modals = require('./src/views/modals')
+
 // Initializes your app with your bot token and app token
 const app = new App({
     token: process.env.SLACK_BOT_TOKEN,
@@ -41,7 +43,14 @@ app.message('world', messageListeners.respondToHello)
 app.command('/echo-2', commandListeners.echo)
 app.command('/folders-2', authenticateUser, commandListeners.getFolders)
 
-authenticateUser
+// Listens for shortcut triggers
+app.shortcut('notion-quick-note-2', modals.openNotionQuickNoteModal)
+
+// Listens for view submits/closes
+app.view(
+    'quick-note-modal-submitted-2',
+    viewListeners.notionRespondToModalSubmission
+)
 
 app.action('button_click', actionListeners.simpleAcknowledge)
 ;(async () => {
