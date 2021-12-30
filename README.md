@@ -1,52 +1,11 @@
-# Getting Started ⚡️ Bolt for JavaScript
-> Slack app example from 📚 [Getting started with Bolt for JavaScript tutorial][1]
+# Smitty Slack App
 
-## Overview
+This is a Slack app built with the Bolt-js library and deployed to a Heroku app. It uses the Google Scripts API and the Notion JavaScript SDK to read and write data to each of those services.
 
-This is a Slack app built with the [Bolt for JavaScript framework][2] that showcases
-responding to events and interactive buttons.
+The app uses a hobby-dev Heroku postgres database to store encrypted OAuth2 refresh tokens for use with the Google API.
 
-## Running locally
+You will need to copy the `.env.sample` file to `.env` and fill in the values for all of the environment variables in order to connect to the needed services.
 
-### 1. Setup environment variables
+## Usage of the Google Scripts API
 
-```zsh
-# Replace with your bot and app token
-export SLACK_BOT_TOKEN=<your-bot-token>
-export SLACK_APP_TOKEN=<your-app-level-token>
-```
-
-### 2. Setup your local project
-
-```zsh
-# Clone this project onto your machine
-git clone https://github.com/slackapi/bolt-js-getting-started-app.git
-
-# Change into the project
-cd bolt-js-getting-started-app/
-
-# Install the dependencies
-npm install
-```
-
-### 3. Start servers
-```zsh
-npm run start
-```
-
-## Contributing
-
-### Issues and questions
-
-Found a bug or have a question about this project? We'd love to hear from you!
-
-1. Browse to [slackapi/bolt-js/issues][4]
-1. Create a new issue
-1. Select the `[x] examples` category
-
-See you there and thanks for helping to improve Bolt for everyone!
-
-[1]: https://slack.dev/bolt-js/tutorial/getting-started
-[2]: https://slack.dev/bolt-js/
-[3]: https://slack.dev/bolt-js/tutorial/getting-started#setting-up-events
-[4]: https://github.com/slackapi/bolt-js/issues/new
+This app makes a request to the Google Scripts API to run a function called `getFolders` defined in a Google Apps Script project defined by the `SCRIPT_ID` environment variable, which should actually be set to the _deployment id_ of the script (deployed as an API Executable), rather than the actual script id.
