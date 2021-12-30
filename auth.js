@@ -72,6 +72,12 @@ const googleAuthHandler = async (req, res) => {
 
     try {
         const result = await oauth2Client.getToken(code)
+        console.log('Got a result back from Google!')
+        if ('refresh_token' in result.tokens) {
+            console.log('We got a refresh token.')
+        } else {
+            console.log('We did not get a refresh token.')
+        }
         const refresh_token = result.tokens.refresh_token
         let encrypted_token = CryptoJS.AES.encrypt(
             refresh_token,
@@ -79,6 +85,7 @@ const googleAuthHandler = async (req, res) => {
         ).toString()
 
         let results = await addUserGoogleToken(user_id, encrypted_token)
+        console.log('Results of trying to add to DB: ', results)
 
         res.status(301).setHeader('Location', redirectURL)
         res.end()
