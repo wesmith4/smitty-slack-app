@@ -58,7 +58,9 @@ const authenticateUser = async ({ payload, client, context, next }) => {
 }
 
 const googleAuthHandler = async (req, res) => {
+    console.log('Req: ', req)
     const query = req.query
+
     const code = query.code
     const { user_id, response_url, team_id, app_id } = JSON.parse(
         decodeURIComponent(query.state)
