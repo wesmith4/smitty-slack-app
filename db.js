@@ -29,7 +29,7 @@ const getEncryptedTokenBySlackUserId = async (slackUserId) => {
     const getTokenQuery = `
   SELECT encrypted_refresh_token
   FROM google_auth_tokens
-  WHERE slack_user_id = "${slackUserId}";
+  WHERE slack_user_id = '${slackUserId}';
   `
 
     console.log('Query: ', getTokenQuery)
