@@ -79,12 +79,12 @@ const googleAuthHandler = async (req, res) => {
         ).toString()
 
         let results = await addUserGoogleToken(user_id, encrypted_token)
-        res.statusCode(301).setHeader('Location', redirectURL)
+        res.status(301).setHeader('Location', redirectURL)
         res.end()
         return
     } catch (err) {
         console.error(err)
-        res.statusCode(502).end('Error: ' + err)
+        res.status(502).end('Error: ' + err)
     }
 }
 
