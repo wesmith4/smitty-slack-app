@@ -54,7 +54,7 @@ const getEncryptedTokenBySlackUserId = async (slackUserId) => {
 const addUserGoogleToken = async (slackUserId, encryptedToken) => {
     const addUserGoogleTokenQuery = `
   INSERT INTO google_auth_tokens (slack_user_id, encrypted_refresh_token,created_on)
-  VALUES (${slackUserId}, ${encryptedToken},CURRENT_TIMESTAMP)`
+  VALUES ('${slackUserId}', '${encryptedToken}', CURRENT_TIMESTAMP)`
     const client = new Client({
         connectionString: process.env.DATABASE_URL,
         ssl: {
