@@ -58,7 +58,7 @@ const authenticateUser = async ({ payload, client, context, next }) => {
 }
 
 const googleAuthHandler = async (req, res) => {
-    console.log('Req: ', req.body)
+    console.log('Req: ', Object.keys(req))
     const query = req.query
 
     const code = query.code
