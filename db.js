@@ -2,16 +2,16 @@ if (!(process.env.NODE_ENV === 'production')) {
     require('dotenv').config()
 }
 const { Client } = require('pg')
-const client = new Client({
-    connectionString: process.env.DATABASE_URL,
-    ssl: {
-        rejectUnauthorized: false,
-    },
-})
 
 const getUsers = async () => {
     const getUsersQuery = `SELECT * FROM users;`
 
+    const client = new Client({
+        connectionString: process.env.DATABASE_URL,
+        ssl: {
+            rejectUnauthorized: false,
+        },
+    })
     client.connect()
     try {
         let results = await client.query(getUsersQuery)
@@ -31,6 +31,12 @@ const getEncryptedTokenBySlackUserId = async (slackUserId) => {
   FROM google_auth_tokens
   WHERE slack_user_id = ${slackUserId};
   `
+    const client = new Client({
+        connectionString: process.env.DATABASE_URL,
+        ssl: {
+            rejectUnauthorized: false,
+        },
+    })
     client.connect()
     try {
         let results = await client.query(getTokenQuery)
@@ -47,6 +53,12 @@ const addUserGoogleToken = async (slackUserId, encryptedToken) => {
     const addUserGoogleTokenQuery = `
   INSERT INTO google_auth_tokens (slack_user_id, encrypted_refresh_token,created_on)
   VALUES (${slackUserId}, ${encryptedToken},CURRENT_TIMESTAMP)`
+    const client = new Client({
+        connectionString: process.env.DATABASE_URL,
+        ssl: {
+            rejectUnauthorized: false,
+        },
+    })
     client.connect()
     try {
         let results = await client.query(addUserGoogleTokenQuery)
