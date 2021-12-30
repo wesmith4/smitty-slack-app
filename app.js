@@ -36,7 +36,7 @@ app.message('world', messageListeners.respondToHello)
 
 // Listens to incoming commands
 app.command('/echo-2', commandListeners.echo)
-app.command('/folders-2', commandListeners.getFolders)
+app.command('/folders-2', authenticateUser, commandListeners.getFolders)
 
 authenticateUser
 
