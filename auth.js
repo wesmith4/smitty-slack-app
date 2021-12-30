@@ -2,6 +2,7 @@ const CryptoJS = require('crypto-js')
 const script = require('@googleapis/script')
 const { getEncryptedTokenBySlackUserId } = require('./db')
 const { authButtonPayload } = require('./src/payloads/payloads')
+const { URL } = require('url')
 
 const oauth2Client = new script.auth.OAuth2({
     clientId: process.env.GOOGLE_CLIENT_ID,
@@ -58,8 +59,10 @@ const authenticateUser = async ({ payload, client, context, next }) => {
 }
 
 const googleAuthHandler = async (req, res) => {
-    console.log('Req: ', Object.keys(req))
-    const query = req.query
+    console.log('Req: ', Object.keys(req.url))
+
+    const url = new URL(req.url, req.headers.host)
+    console.log('URL Search Params: ', url.searchParams)
 
     const code = query.code
     const { user_id, response_url, team_id, app_id } = JSON.parse(
