@@ -2,7 +2,6 @@ const CryptoJS = require('crypto-js')
 const script = require('@googleapis/script')
 const { getEncryptedTokenBySlackUserId, addUserGoogleToken } = require('./db')
 const { authButtonPayload } = require('./src/payloads/payloads')
-const { addUserGoogleToken } = require('./db')
 const url = require('url')
 
 const oauth2Client = new script.auth.OAuth2({
