@@ -16,21 +16,19 @@ const NotionQuickNoteModal = (dbOptions) => {
         },
         blocks: [
             {
-                type: 'section',
-                block_id: 'quick-note-modal-select-block',
-                text: {
-                    type: 'mrkdwn',
-                    text: 'Select a Notion database:',
-                },
-                accessory: {
+                type: 'input',
+                element: {
                     type: 'static_select',
-                    action_id: 'quick-note-modal-select-database',
                     placeholder: {
                         type: 'plain_text',
                         text: 'Select a database',
                     },
                     options: dbOptions,
-                    // initial_option: dbOptions[0],
+                    action_id: 'notion-database-selected',
+                },
+                label: {
+                    type: 'plain_text',
+                    text: 'Select a database',
                 },
             },
             {
