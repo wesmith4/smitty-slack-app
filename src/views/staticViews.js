@@ -23,8 +23,8 @@ const NotionQuickNoteModal = async (dbOptions) => {
                     text: 'Select a Notion database:',
                 },
                 accessory: {
-                    action_id: 'quick-note-modal-select-database',
                     type: 'static_select',
+                    action_id: 'quick-note-modal-select-database',
                     placeholder: {
                         type: 'plain_text',
                         text: 'Select a database',
