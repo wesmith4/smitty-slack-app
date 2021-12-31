@@ -6,6 +6,7 @@ const openNotionQuickNoteModal = async ({ shortcut, ack, client, logger }) => {
         await ack()
         let dbOptions = await getAvailableNotionDatabases()
         let view = NotionQuickNoteModal(dbOptions)
+        console.log(view)
 
         const result = await client.views.open({
             trigger_id: shortcut.trigger_id,
