@@ -1,4 +1,4 @@
-const NotionQuickNoteModal = async (dbOptions) => {
+const NotionQuickNoteModal = (dbOptions) => {
     return {
         type: 'modal',
         callback_id: 'quick-note-modal-submitted-2',
