@@ -75,7 +75,7 @@ const getAvailableNotionDatabases = async () => {
             return {
                 text: {
                     type: 'plain_text',
-                    text: row.title,
+                    text: `*${row.title}*`,
                 },
                 value: row.notion_database_id,
             }

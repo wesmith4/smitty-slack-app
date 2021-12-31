@@ -1,26 +1,26 @@
 {
-  "name": "bolt-js-getting-started-app",
-  "version": "2.0.0",
-  "description": "Getting Started ⚡️ Bolt for JavaScript",
-  "main": "app.js",
-  "scripts": {
-    "ngrok": "ngrok http 3000",
-    "start": "node app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "license": "MIT",
-  "dependencies": {
-    "@googleapis/script": "^0.2.0",
-    "@notionhq/client": "^0.4.11",
-    "@slack/bolt": "^3.6.0",
-    "axios": "^0.24.0",
-    "crypto-js": "^4.1.1",
-    "knex": "^0.95.15",
-    "pg": "^8.7.1",
-    "url": "^0.11.0"
-  },
-  "devDependencies": {
-    "dotenv": "^10.0.0",
-    "prettier": "^2.5.1"
-  }
+    "name": "bolt-js-getting-started-app",
+    "version": "2.0.0",
+    "description": "Getting Started ⚡️ Bolt for JavaScript",
+    "main": "app.js",
+    "scripts": {
+        "ngrok": "ngrok http 3000",
+        "start": "node app.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "license": "MIT",
+    "dependencies": {
+        "@googleapis/script": "^0.2.0",
+        "@notionhq/client": "^0.4.11",
+        "@slack/bolt": "^3.6.0",
+        "axios": "^0.24.0",
+        "crypto-js": "^4.1.1",
+        "knex": "^0.95.15",
+        "pg": "^8.7.1",
+        "url": "^0.11.0"
+    },
+    "devDependencies": {
+        "dotenv": "^10.0.0",
+        "prettier": "^2.5.1"
+    }
 }
