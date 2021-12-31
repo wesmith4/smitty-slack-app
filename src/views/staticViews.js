@@ -30,7 +30,7 @@ const NotionQuickNoteModal = async (dbOptions) => {
                         text: 'Select a database',
                     },
                     options: dbOptions,
-                    initial_option: dbOptions[0],
+                    // initial_option: dbOptions[0],
                 },
             },
             {
