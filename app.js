@@ -29,6 +29,13 @@ const app = new App({
     port: process.env.PORT || 3000,
 })
 
+// Set up database
+const Knex = require('knex')
+let dbConfig = require('./knexfile')
+let knex = Knex(dbConfig[process.env.NODE_ENV])
+let { Model } = require('objection')
+Model.knex(knex)
+
 // Listens for events
 app.event('url_verification', eventListeners.verifyUrl)
 app.event('app_home_opened', eventListeners.renderAppHome)
