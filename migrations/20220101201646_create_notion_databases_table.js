@@ -1,8 +1,8 @@
 exports.up = function (knex) {
-    return knex.schema.createTable('users', (table) => {
+    return knex.schema.createTable('notion_databases', (table) => {
         table.increments('id').primary()
-        table.string('slack_user_id').notNullable().unique()
-        table.text('email').unique()
+        table.string('database_id').notNullable().unique()
+        table.string('title')
         table
             .timestamp('created_at', { precision: 6 })
             .defaultTo(knex.fn.now(6))
@@ -10,5 +10,5 @@ exports.up = function (knex) {
 }
 
 exports.down = function (knex) {
-    return knex.schema.dropTable('users')
+    return knex.schema.dropTable('notion_databases')
 }

@@ -34,6 +34,7 @@ const Knex = require('knex')
 let dbConfig = require('./knexfile')
 let knex = Knex(dbConfig[process.env.NODE_ENV])
 let { Model } = require('objection')
+const client = require('pg/lib/native/client')
 Model.knex(knex)
 
 // Listens for events

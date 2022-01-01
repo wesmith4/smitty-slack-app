@@ -1,8 +1,13 @@
 const CryptoJS = require('crypto-js')
 const script = require('@googleapis/script')
-const { getEncryptedTokenBySlackUserId, addUserGoogleToken } = require('./db')
+// const { getEncryptedTokenBySlackUserId, addUserGoogleToken } = require('./db')
 const { authButtonPayload } = require('./src/payloads/payloads')
 const url = require('url')
+const {
+    insertNewRefreshToken,
+    getGoogleRefreshTokenBySlackUserId,
+    getUserBySlackId,
+} = require('./dbFunctions')
 
 const oauth2Client = new script.auth.OAuth2({
     clientId: process.env.GOOGLE_CLIENT_ID,
@@ -24,8 +29,10 @@ const authenticateUser = async ({ payload, client, context, next }) => {
     const userId = payload.user_id
     context.user_id = userId
 
+    let user = await getUserBySlackId(userId)
+
     try {
-        let encryptedToken = await getEncryptedTokenBySlackUserId(userId)
+        let encryptedToken = await getGoogleRefreshTokenBySlackUserId(userId)
         if (encryptedToken) {
             // Decrypt the token
             let bytes = CryptoJS.AES.decrypt(
@@ -37,6 +44,8 @@ const authenticateUser = async ({ payload, client, context, next }) => {
                 refresh_token: decryptedRefreshToken,
             })
             context.auth = oauth2Client
+        } else {
+            throw 'No refresh token found'
         }
     } catch (err) {
         console.log(err)
@@ -82,7 +91,8 @@ const googleAuthHandler = async (req, res) => {
             process.env.ENCRYPTION_KEY
         ).toString()
 
-        let results = await addUserGoogleToken(user_id, encrypted_token)
+        // let results = await addUserGoogleToken(user_id, encrypted_token)
+        let tokenInDb = await insertNewRefreshToken(user_id, encrypted_token)
         // console.log('Results of trying to add to DB: ', results)
 
         // res.status(301).setHeader('Location', redirectURL)
