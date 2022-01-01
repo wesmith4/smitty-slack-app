@@ -84,6 +84,15 @@ const insertNewNotionDatabase = async (database_id, name) => {
     return notionDatabase
 }
 
+const getLastUserViewId = async (slack_user_id) => {
+    let user = await User.query().findOne({ slack_user_id: slack_user_id })
+    let viewId = await user
+        .$relatedQuery('view_ids')
+        .orderBy('created_at', 'desc')
+        .first()
+    return viewId.viewId
+}
+
 module.exports = {
     getUserBySlackId,
     insertNewUser,
@@ -93,4 +102,5 @@ module.exports = {
     insertNewNotionDatabase,
     relateNotionDatabaseToUser,
     addEmailToUser,
+    getLastUserViewId,
 }
