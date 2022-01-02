@@ -7,13 +7,9 @@ Model.knex(knex)
 
 const dbFunctions = require('./dbFunctions')
 
-const execute = async () => {
-    try {
-        let user = await dbFunctions.insertNewUser('U1254398767')
-        console.log(user)
-    } catch (err) {
-        console.error(err)
-    }
-}
-
-execute()
+// Self-calling function
+;(async () => {
+    let newUser = await dbFunctions.insertNewUser('U029344320')
+    console.log(newUser)
+    knex.destroy()
+})()

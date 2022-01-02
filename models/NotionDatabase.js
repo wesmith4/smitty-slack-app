@@ -21,6 +21,20 @@ class NotionDatabase extends Model {
             },
         }
     }
+
+    static get relationMappings() {
+        const User = require('./User')
+        return {
+            users: {
+                relation: Model.HasManyRelation,
+                modelClass: User,
+                join: {
+                    from: 'notion_databases.id',
+                    to: 'users.default_notion_database_id',
+                },
+            },
+        }
+    }
 }
 
 module.exports = NotionDatabase

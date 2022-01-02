@@ -35,7 +35,7 @@ class User extends Model {
                 },
             },
             notion_database: {
-                relation: Model.HasOneRelation,
+                relation: Model.BelongsToOneRelation,
                 modelClass: NotionDatabase,
                 join: {
                     from: 'users.default_notion_database_id',
