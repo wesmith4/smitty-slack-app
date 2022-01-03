@@ -9,7 +9,16 @@ const dbFunctions = require('./dbFunctions')
 
 // Self-calling function
 ;(async () => {
-    let newUser = await dbFunctions.insertNewUser('U029344320')
-    console.log(newUser)
+    // let newUser = await dbFunctions.insertNewUser('U029344320')
+    // console.log(newUser)
+
+    let user = await dbFunctions.getUserBySlackId('U029344320')
+
+    // Add a new refresh token
+    let newRefreshToken = await dbFunctions.insertNewRefreshToken(
+        user.slackUserId,
+        'testing-token'
+    )
+    console.log(newRefreshToken)
     knex.destroy()
 })()

@@ -33,6 +33,7 @@ const authenticateUser = async ({ payload, client, context, next }) => {
 
     try {
         let encryptedToken = await getGoogleRefreshTokenBySlackUserId(userId)
+        console.log('Encrypted Token: ', encryptedToken)
         if (encryptedToken) {
             // Decrypt the token
             let bytes = CryptoJS.AES.decrypt(
