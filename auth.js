@@ -41,7 +41,7 @@ const authenticateUser = async ({ payload, client, context, next }) => {
                 process.env.ENCRYPTION_KEY
             )
             let decryptedRefreshToken = bytes.toString(CryptoJS.enc.Utf8)
-            console.log(decryptedRefreshToken)
+            console.log('DECRYPTED REFRESH TOKEN: ', decryptedRefreshToken)
             oauth2Client.setCredentials({
                 refresh_token: decryptedRefreshToken,
             })
@@ -82,11 +82,11 @@ const googleAuthHandler = async (req, res) => {
     try {
         const result = await oauth2Client.getToken(code)
         console.log('Got a result back from Google!')
-        // if ('refresh_token' in result.tokens) {
-        //     console.log('We got a refresh token.')
-        // } else {
-        //     console.log('We did not get a refresh token.')
-        // }
+        if ('refresh_token' in result.tokens) {
+            console.log('We got a refresh token: ', result.tokens.refresh_token)
+        } else {
+            console.log('We did not get a refresh token.')
+        }
         const refresh_token = result.tokens.refresh_token
         let encrypted_token = CryptoJS.AES.encrypt(
             refresh_token,
@@ -95,7 +95,7 @@ const googleAuthHandler = async (req, res) => {
 
         // let results = await addUserGoogleToken(user_id, encrypted_token)
         let tokenInDb = await insertNewRefreshToken(user_id, encrypted_token)
-        // console.log('Results of trying to add to DB: ', results)
+        console.log('Results of trying to add to DB: ', tokenInDb)
 
         // res.status(301).setHeader('Location', redirectURL)
         res.writeHead(302, 'Found', { Location: redirectURL })
