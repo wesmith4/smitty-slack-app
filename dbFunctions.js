@@ -33,7 +33,7 @@ const addEmailToUser = async (slack_user_id, email) => {
 const getGoogleRefreshTokenBySlackUserId = async (slack_user_id) => {
     let user = await User.query().findOne({ slack_user_id: slack_user_id })
     let token = await user.$relatedQuery('google_auth_token').first()
-    return token.encryptedRefreshToken.token || null
+    return token.encryptedRefreshToken || null
 }
 
 const insertNewRefreshToken = async (
