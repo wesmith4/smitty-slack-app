@@ -5,6 +5,13 @@ if (!(process.env.NODE_ENV === 'production')) {
 const { App } = require('@slack/bolt')
 const { authenticateUser, googleAuthHandler } = require('./auth')
 
+// Set up database
+const Knex = require('knex')
+let dbConfig = require('./knexfile')
+let knex = Knex(dbConfig[process.env.NODE_ENV])
+let { Model } = require('objection')
+Model.knex(knex)
+
 // Require Listeners
 const messageListeners = require('./src/listeners/messageListeners')
 const eventListeners = require('./src/listeners/eventListeners')
@@ -28,14 +35,6 @@ const app = new App({
     ],
     port: process.env.PORT || 3000,
 })
-
-// Set up database
-const Knex = require('knex')
-let dbConfig = require('./knexfile')
-let knex = Knex(dbConfig[process.env.NODE_ENV])
-let { Model } = require('objection')
-const client = require('pg/lib/native/client')
-Model.knex(knex)
 
 // Listens for events
 app.event('url_verification', eventListeners.verifyUrl)
