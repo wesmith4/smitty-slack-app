@@ -40,6 +40,7 @@ const authenticateUser = async ({ payload, client, context, next }) => {
                 process.env.ENCRYPTION_KEY
             )
             let decryptedRefreshToken = bytes.toString(CryptoJS.enc.Utf8)
+            console.log(decryptedRefreshToken)
             oauth2Client.setCredentials({
                 refresh_token: decryptedRefreshToken,
             })
