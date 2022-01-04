@@ -14,7 +14,7 @@ const getFolders = async ({ command, ack, client, context, respond }) => {
         return
     }
 
-    console.log('Auth: ', context.auth)
+    // console.log('Auth: ', context.auth)
 
     let result = await scriptClient.scripts.run({
         auth: context.auth,
